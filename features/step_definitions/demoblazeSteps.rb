@@ -4,6 +4,17 @@ end
 
 When('I click on {string} option') do |option_text|
   click_link(option_text)
+  puts "***CLICKED ON OPTION: #{option_text}"
+  
+  if option_text == "Cart"
+    expect(page).to have_selector('h2', text: 'Products', wait: 10)
+    puts "***CART PAGE LOADED"
+  elsif option_text == "Contact"
+    sleep 1
+    expect(page).to have_selector('#exampleModal', wait: 10)
+    puts "***CONTACT MODAL OPENED"
+  end
+  
 end
 
 When('I enter the registered username in the sign up username field') do
@@ -24,6 +35,11 @@ end
 
 When('I click on the {string} button in the pop up') do |button_text|
   find(:xpath, "//button[text()='#{button_text}']", wait: 10).click
+end
+
+When('I accept the alert') do
+  page.driver.browser.switch_to.alert.accept
+  puts "***ALERT ACCEPTED"
 end
 
 Then('the alert message should be {string}') do |expected_message|
@@ -58,4 +74,23 @@ Then('the welcome message should show the registered username') do
   if actual_message != expected_message
     raise "Welcome message is wrong. Expected: #{expected_message} Actual: #{actual_message}"
   end
+end
+
+Given('I am logged in with a registered user') do
+  click_link("Log in")
+  
+  find(:css, '#loginusername', wait: 10).set(ENV['DEMOBLAZE_USER'])
+  find(:css, '#loginpassword', wait: 10).set(ENV['DEMOBLAZE_PASSWORD'])
+  
+  find(:xpath, "//button[text()='Log in']", wait: 10).click
+  
+  expected_message = "Welcome #{ENV['DEMOBLAZE_USER']}"
+  welcome_element = find(:css, '#nameofuser', wait: 10)
+  actual_message = welcome_element.text
+  
+  if actual_message != expected_message
+    raise "Login failed. Expected: #{expected_message} Actual: #{actual_message}"
+  end
+  
+  puts "***USER LOGGED IN: #{ENV['DEMOBLAZE_USER']}"
 end
