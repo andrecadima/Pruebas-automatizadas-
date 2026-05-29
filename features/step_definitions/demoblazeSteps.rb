@@ -1,5 +1,5 @@
 Given('I browse to Demoblaze page') do
-  visit 'https://demoblaze.com'
+  visit '/'
 end
 
 When('I click on {string} option') do |option_text|

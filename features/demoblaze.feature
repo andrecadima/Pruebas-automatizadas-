@@ -21,3 +21,6 @@ Scenario: Successful sign in in Demoblaze
   And I enter the registered password in the log in password field
   And I click on the "Log in" button in the pop up
   Then the welcome message should show the registered username
+  
+
+

@@ -5,7 +5,7 @@ require 'capybara/cucumber'
 require 'capybara-screenshot/cucumber'
 
 #DemoBlaze credentials
-ENV['DEMOBLAZE_USER'] = 'andrepeje123ab4zatzz1'
+ENV['DEMOBLAZE_USER'] = 'andrepeje123ab4zat77'
 ENV['DEMOBLAZE_PASSWORD'] = '1234'
 
 Capybara.default_driver = :selenium
