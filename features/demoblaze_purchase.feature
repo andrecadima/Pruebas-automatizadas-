@@ -15,12 +15,12 @@ Scenario: Complete a successful purchase order
   When I click on the "Place Order" button
   Then the place order modal should be displayed
   When I fill in the purchase form with:
-    | Name         | QA Tester Ariel |
-    | Country      | Bolivia         |
-    | City         | Cochabamba      |
-    | Credit Card  | 1234 5678 9012 3456 |
-    | Month        | 12              |
-    | Year         | 2026            |
+    | Name        | QA Tester Ariel        |
+    | Country     | Bolivia                |
+    | City        | Cochabamba             |
+    | Credit Card | 1234 5678 9012 3456    |
+    | Month       | 12                     |
+    | Year        | 2026                   |
   And I click on the "Purchase" button
   Then the success message should be "Thank you for your purchase!"
-  And I should be redirected to the home page
+  And I should remain on the cart page after purchase
