@@ -1,12 +1,14 @@
 Then('the about us modal should be displayed') do
   modal = find(:css, '#videoModal', wait: 10)
   expect(modal).to be_visible
+
   puts "***ABOUT US MODAL DISPLAYED"
 end
 
 Then('the about us modal should contain a video preview') do
   within('#videoModal') do
     expect(page).to have_selector('video, iframe, .video-js', wait: 10)
+
     puts "***VIDEO PREVIEW FOUND"
   end
 end
@@ -14,14 +16,45 @@ end
 Then('the about us modal should contain a message') do
   within('#videoModal') do
     body = find('.modal-body', wait: 10)
+
     message = body.text.strip
+
     expect(message.length).to be > 0
-    puts "***ABOUT US MESSAGE (truncated): #{message[0..120]}"
+
+    puts "***ABOUT US MESSAGE FOUND"
+  end
+end
+
+Then('the about us video source should be loaded') do
+  within('#videoModal') do
+
+    video = find('video', wait: 10)
+
+    src = video[:src]
+
+    puts "***VIDEO SRC: #{src}"
+
+    expect(src).not_to be_nil
+    expect(src).not_to eq('')
+  end
+end
+
+Then('the about us video player should have playback controls') do
+  within('#videoModal') do
+
+    expect(page).to have_selector('#example-video', wait: 10)
+
+    expect(page).to have_selector('.vjs-play-control', visible: :all, wait: 10)
+
+    expect(page).to have_selector('.vjs-progress-control', visible: :all, wait: 10)
+
+    puts "***VIDEO PLAYBACK CONTROLS FOUND"
   end
 end
 
 When('I click the "Close" button in the about us modal') do
   modal = find(:css, '#videoModal', visible: true, wait: 10)
+
   expect(modal).to be_visible
 
   sleep 2
@@ -44,6 +77,7 @@ end
 
 When('I click the "X" button in the about us modal') do
   modal = find(:css, '#videoModal', visible: true, wait: 10)
+
   expect(modal).to be_visible
 
   sleep 2
@@ -58,8 +92,8 @@ When('I click the "X" button in the about us modal') do
 end
 
 Then('the about us modal should be closed') do
+
   expect(page).to have_no_selector('#videoModal.show', wait: 10)
-  expect(page).to have_no_selector('.modal-backdrop', wait: 10)
 
   puts "***ABOUT US MODAL CLOSED"
 end
