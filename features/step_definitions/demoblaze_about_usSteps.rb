@@ -97,3 +97,47 @@ Then('the about us modal should be closed') do
 
   puts "***ABOUT US MODAL CLOSED"
 end
+
+When('I play the about us video') do
+  within('#videoModal') do
+
+    if has_selector?('.vjs-big-play-button', visible: :all, wait: 5)
+      find('.vjs-big-play-button', visible: :all).click
+    else
+      page.execute_script(
+        "document.querySelector('#videoModal video').play();"
+      )
+    end
+  end
+
+  sleep 3
+
+  puts "***VIDEO PLAY STARTED"
+end
+
+Then('the about us video should be playing') do
+
+  initial_time = page.evaluate_script(
+    "document.querySelector('#videoModal video').currentTime"
+  )
+
+  playing = false
+
+  10.times do
+    sleep 1
+
+    current_time = page.evaluate_script(
+      "document.querySelector('#videoModal video').currentTime"
+    )
+
+    if current_time > initial_time
+      puts "***VIDEO ADVANCED FROM #{initial_time} TO #{current_time}"
+      playing = true
+      break
+    end
+  end
+
+  expect(playing).to eq(true)
+
+  puts "***VIDEO IS PLAYING"
+end
