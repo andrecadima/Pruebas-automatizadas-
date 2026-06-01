@@ -1,5 +1,12 @@
 Given('I browse to Demoblaze page') do
-  visit '/'
+  visit('https://www.demoblaze.com')
+
+  expect(page).to have_selector(
+    '#nava',
+    wait: 20
+  )
+
+  puts "***DEMOBLAZE HOME LOADED"
 end
 
 When('I click on {string} option') do |option_text|
