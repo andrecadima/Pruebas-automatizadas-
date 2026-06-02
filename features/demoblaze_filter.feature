@@ -6,7 +6,7 @@ Feature: Demoblaze product category filtering
         Background:
             Given I browse to Demoblaze page
 
-        @demoblaze_phones_filter
+        @maximize @demoblaze_phones_filter
         Scenario Outline: Validate products after filtering by Phones category
              Then the product "Samsung galaxy s6" should be visible before filtering
              When I click on the "Phones" category
@@ -18,7 +18,7 @@ Feature: Demoblaze product category filtering
                   | Nokia lumia 1520 |
                   | Nexus 6          |
 
-        @demoblaze_laptops_filter
+        @maximize @demoblaze_laptops_filter
         Scenario Outline: Validate products after filtering by Laptops category
              Then the product "Samsung galaxy s6" should be visible before filtering
              When I click on the "Laptops" category
@@ -30,7 +30,7 @@ Feature: Demoblaze product category filtering
                   | Sony vaio i5 |
                   | Sony vaio i7 |
 
-        @demoblaze_monitors_filter
+        @maximize @demoblaze_monitors_filter
         Scenario Outline: Validate products after filtering by Monitors category
              Then the product "Samsung galaxy s6" should be visible before filtering
              When I click on the "Monitors" category

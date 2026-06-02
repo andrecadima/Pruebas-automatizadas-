@@ -4,7 +4,7 @@ Feature: Demoblaze complete purchase flow
             Given I browse to Demoblaze page
               And I am logged in with a registered user
 
-        @smoke_test_purchase_complete
+        @maximize @handle_alerts @smoke_test_purchase_complete
         Scenario: Complete a successful purchase order
              When I click on the "Samsung galaxy s6" product
              Then the product detail page should be displayed for "Samsung galaxy s6"

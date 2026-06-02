@@ -1,10 +1,10 @@
 Then('I should see the product {string} in the cart') do |product_name|
-  expect(page).to have_selector(:xpath, "//td[text()='#{product_name}']", wait: 10)
+  expect(page).to have_selector(:xpath, "//td[normalize-space()='#{product_name}']", wait: 10)
   puts "***PRODUCT #{product_name} IS IN CART"
 end
 
 When('I click on the {string} button') do |button_text|
-  find(:xpath, "//button[text()='#{button_text}']", wait: 10).click
+  find(:xpath, "//button[normalize-space()='#{button_text}']", wait: 10).click
   puts "***CLICKED ON BUTTON: #{button_text}"
 end
 
@@ -46,10 +46,13 @@ Then('the success message should be {string}') do |expected_message|
 end
 
 Then('I should remain on the cart page after purchase') do
-  expected_url = 'https://demoblaze.com/cart.html'
+  valid_urls = [
+    'https://demoblaze.com/cart.html',
+    'https://www.demoblaze.com/cart.html'
+  ]
 
-  if current_url != expected_url
-    raise "Wrong page after purchase. Expected: #{expected_url} Actual: #{current_url}"
+  unless valid_urls.include?(current_url)
+    raise "Wrong page after purchase. Expected one of: #{valid_urls.join(' or ')} Actual: #{current_url}"
   end
 
   puts "***REMAINED ON CART PAGE AFTER PURCHASE: #{current_url}"
