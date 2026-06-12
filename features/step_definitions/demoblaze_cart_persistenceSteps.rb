@@ -1,5 +1,5 @@
-When('I add the product {string} for persistence validation') do |product_name|
-  puts "***ADDING PRODUCT FOR PERSISTENCE TEST: #{product_name}"
+When('I add the product {string}') do |product_name|
+  puts "***ADDING PRODUCT: #{product_name}"
 
   find(
     :xpath,
@@ -40,7 +40,7 @@ When('I add the product {string} for persistence validation') do |product_name|
   puts "***PRODUCT ADDED SUCCESSFULLY"
 end
 
-When('I navigate back to the home page for persistence validation') do
+When('I navigate back to the home page') do
   visit 'https://demoblaze.com'
 
   sleep 3
@@ -54,7 +54,7 @@ When('I navigate back to the home page for persistence validation') do
   puts "***RETURNED TO HOME PAGE"
 end
 
-When('I open the cart page for persistence validation') do
+When('I open the cart page') do
   find(:link, 'Cart', wait: 10).click
 
   sleep 3
