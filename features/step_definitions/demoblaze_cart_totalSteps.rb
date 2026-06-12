@@ -1,4 +1,4 @@
-When('I add products with prices to the Demoblaze cart:') do |table|
+When('I add products with prices to the cart:') do |table|
   products = table.hashes
 
   @expected_cart_total = 0
@@ -60,17 +60,17 @@ When('I add products with prices to the Demoblaze cart:') do |table|
   puts "***EXPECTED CART TOTAL: #{@expected_cart_total}"
 end
 
-Then('the Demoblaze cart total should be equal to the expected total') do
+Then('the cart total should be {int}') do |expected_total|
   sleep 3
 
   total_element = find(:css, '#totalp', wait: 10)
   actual_total = total_element.text.strip.to_i
 
-  puts "***EXPECTED CART TOTAL: #{@expected_cart_total}"
+  puts "***EXPECTED CART TOTAL: #{expected_total}"
   puts "***ACTUAL CART TOTAL: #{actual_total}"
 
-  if actual_total != @expected_cart_total
-    raise "Cart total is wrong. Expected: #{@expected_cart_total} Actual: #{actual_total}"
+  if actual_total != expected_total
+    raise "Cart total is wrong. Expected: #{expected_total} Actual: #{actual_total}"
   end
 
   puts "***CART TOTAL IS CORRECT"
