@@ -1,11 +1,7 @@
 Given('I browse to Demoblaze page') do
-  visit('https://www.demoblaze.com')
-
-  expect(page).to have_selector(
-    '#nava',
-    wait: 20
-  )
-
+  visit('/')
+  
+  expect(page).to have_selector('#nava', wait: 20)
   puts "***DEMOBLAZE HOME LOADED"
 end
 
