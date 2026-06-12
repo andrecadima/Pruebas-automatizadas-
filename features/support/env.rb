@@ -8,11 +8,14 @@ require 'dotenv'
 
 Dotenv.load
 
+# Especificar la ruta de ChromeDriver
+Selenium::WebDriver::Chrome::Service.driver_path = 'C:/Ruby33-x64/bin/chromedriver.exe'
+
 # Configuración de Capybara
 Capybara.default_max_wait_time = 15
 Capybara.run_server = false
 
-# URL base desde variable de entorno o por defecto
+# URL base desde variable de entorno
 BASE_URL = ENV['BASE_URL'] || 'https://www.demoblaze.com'
 Capybara.app_host = BASE_URL
 
