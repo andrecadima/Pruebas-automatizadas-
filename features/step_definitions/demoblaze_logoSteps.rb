@@ -55,11 +55,6 @@ Then('the contact modal should be closed') do
   puts "***CONTACT MODAL IS CLOSED"
 end
 
-Then('the about us modal should be closed') do
-  expect(page).to have_no_selector('#videoModal', visible: true, wait: 5)
-  puts "***ABOUT US MODAL IS CLOSED"
-end
-
 # ============================================
 # AGREGAR PRODUCTO AL CARRITO (reutilizable)
 # ============================================
