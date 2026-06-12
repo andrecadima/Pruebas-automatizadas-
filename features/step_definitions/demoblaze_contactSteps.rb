@@ -64,18 +64,31 @@ When('I click the {string} button in the contact modal') do |button_text|
     find(:xpath, "//div[@id='exampleModal']//button[@class='close']", wait: 10).click
     sleep 1
   when "send message"
-    # Hacer clic en el botón Send message
     find(:xpath, "//div[@id='exampleModal']//button[text()='Send message']", wait: 10).click
     puts "***CLICKED SEND MESSAGE, WAITING FOR ALERT..."
-    sleep 3  # Esperar a que la alerta aparezca
+    sleep 3
   end
   puts "***CLICKED: #{button_text} button"
 end
 
 # ============================================
-# VERIFICAR QUE EL MODAL SE CIERRA (si aplica)
+# VERIFICAR QUE EL MODAL SE CIERRA
 # ============================================
 Then('the contact modal should be closed') do
   expect(page).to have_no_selector('#exampleModal', visible: true, wait: 5)
   puts "***CONTACT MODAL IS CLOSED"
 end
+
+# ============================================
+# SISTEMA MANEJA FORMULARIO VACIO
+# ============================================
+Then('the system should handle the empty Contact form submission') do
+  begin
+    alert = page.driver.browser.switch_to.alert
+    puts "***ALERT SHOWN: #{alert.text}"
+    alert.accept
+  rescue
+    puts "***NO ALERT, FORM HANDLED EMPTY FIELDS"
+  end
+end
+

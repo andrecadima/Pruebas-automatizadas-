@@ -31,6 +31,19 @@ When('I enter the registered password in the sign up password field') do
   find(:css, '#sign-password', wait: 10).set(ENV['DEMOBLAZE_PASSWORD'])
 end
 
+# NUEVOS STEPS PARA REGISTRO CON DATOS ALEATORIOS
+When('I enter a new random username in the sign up username field') do
+  @random_user = "test_user_#{Time.now.to_i}"
+  find(:css, '#sign-username', wait: 10).set(@random_user)
+  puts "***RANDOM USERNAME: #{@random_user}"
+end
+
+When('I enter a new random password in the sign up password field') do
+  @random_password = "pass_#{Time.now.to_i}"
+  find(:css, '#sign-password', wait: 10).set(@random_password)
+  puts "***RANDOM PASSWORD: #{@random_password}"
+end
+
 When('I enter the registered username in the log in username field') do
   find(:css, '#loginusername', wait: 10).set(ENV['DEMOBLAZE_USER'])
 end
@@ -218,3 +231,26 @@ Then('the about us video should be playing') do
   expect(playing).to eq(true)
   puts "***VIDEO IS PLAYING"
 end
+
+# ============ LOGOUT STEPS ============
+
+Then('the welcome message should be visible before logout') do
+  expect(page).to have_selector('#nameofuser', visible: true, wait: 10)
+  puts "***WELCOME MESSAGE IS VISIBLE"
+end
+
+Then('the Log in option should be visible after logout') do
+  expect(page).to have_link('Log in', visible: true, wait: 10)
+  puts "***LOG IN OPTION IS VISIBLE"
+end
+
+Then('the Sign up option should be visible after logout') do
+  expect(page).to have_link('Sign up', visible: true, wait: 10)
+  puts "***SIGN UP OPTION IS VISIBLE"
+end
+
+Then('the welcome message should not be visible after logout') do
+  expect(page).to have_no_selector('#nameofuser', wait: 10)
+  puts "***WELCOME MESSAGE NOT VISIBLE"
+end
+
