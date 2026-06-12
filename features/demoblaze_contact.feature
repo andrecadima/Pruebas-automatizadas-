@@ -1,41 +1,42 @@
 Feature: Demoblaze Contact form
-  As a user
-  I want to interact with the Contact form
-  So that I can validate its behavior, persistence bugs, and successful submission
+  As a visitor
+  I want to send messages through the contact form
+  So that I can communicate with the store
 
   Background:
-    Given I browse to Demoblaze page
+    Given I am on the Demoblaze home page
 
   @contact_empty_fields_validation
-  Scenario: Send contact form with empty fields
-    When I click on "Contact" option
-    Then the contact modal should be displayed
-    When I click the "Send message" button in the contact modal
-    Then the system should handle the empty Contact form submission
+  Scenario: Send message with empty fields
+    When I open the contact form
+    Then I can see the contact window
+    When I send the message without filling any field
+    Then I see a message telling me to complete the form
 
   @smoke_test_contact_bug_report
-  Scenario: Contact modal persists data after close and allows bug reporting
-    When I click on "Contact" option
-    Then the contact modal should be displayed
-    When I fill in the contact name with "QA Tester Ariel"
-    And I click the "Close" button in the contact modal
-    When I click on "Contact" option
-    Then the contact name field should contain "QA Tester Ariel"
-    When I fill in the contact email with "ariel@test.com"
-    And I click the "X" button in the contact modal
-    When I click on "Contact" option
-    Then the contact name field should contain "QA Tester Ariel"
-    And the contact email field should contain "ariel@test.com"
-    When I fill in the contact message with "Tienen un bug: se puede hacer una orden con el carrito vacío"
-    And I click the "Send message" button in the contact modal
-    Then the alert message should be "Thanks for the message!!"
+  Scenario: Contact form saves information after closing
+    When I open the contact form
+    Then I can see the contact window
+    When I write my name as "QA Tester Ariel"
+    And I close the window
+    When I open the contact form again
+    Then my name should still be "QA Tester Ariel"
+    When I write my email as "ariel@test.com"
+    And I close the window using the X button
+    When I open the contact form again
+    Then my name should still be "QA Tester Ariel"
+    And my email should still be "ariel@test.com"
+    When I write a message saying "I found a problem"
+    And I send the message
+    Then I see a confirmation saying "Thanks for the message!!"
 
-  @contact_success_data_table
-  Scenario: Send contact message successfully
-    When I click on "Contact" option
-    Then the contact modal should be displayed
-    When I fill in the contact email with "qa.tester@test.com"
-    And I fill in the contact name with "QA Tester Ariel"
-    And I fill in the contact message with "This is an automated test."
-    And I click the "Send message" button in the contact modal
-    Then the alert message should be "Thanks for the message!!"
+  @contact_success
+  Scenario: Send message successfully
+    When I open the contact form
+    Then I can see the contact window
+    When I fill the contact form with:
+      | Email   | qa.tester@test.com |
+      | Name    | QA Tester Ariel    |
+      | Message | This is an automated test |
+    And I send the message
+    Then I see a confirmation saying "Thanks for the message!!"
