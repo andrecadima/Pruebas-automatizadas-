@@ -1,52 +1,53 @@
 Feature: Demoblaze product pagination
-  As a user
-  I want to navigate through product pages using Next and Previous buttons
-  So that I can see all available products
+  As a shopper
+  I want to browse through product pages
+  So that I can see all available items
 
-Background:
-  Given I browse to Demoblaze page
+  Background:
+    Given I am on the Demoblaze home page
+    And I am on the first page of products
 
-@smoke_test_pagination_previous
-Scenario: Click on Previous button from page 1
-  Then the page should display the following products:
-    | Samsung galaxy s6   |
-    | Nokia lumia 1520    |
-    | Nexus 6             |
-    | Samsung galaxy s7   |
-    | Iphone 6 32gb       |
-    | Sony xperia z5      |
-    | HTC One M9          |
-    | Sony vaio i5        |
-    | Sony vaio i7        |
-  When I click the "Previous" pagination button
-  Then the page should display the following products:
-    | Samsung galaxy s7   |
-    | Nexus 6             |
-    | Nokia lumia 1520    |
-    | Iphone 6 32gb       |
-    | Sony xperia z5      |
-    | HTC One M9          |
-    | Sony vaio i5        |
-    | Sony vaio i7        |
-    | Apple monitor 24    |
+  @smoke_test_pagination_previous
+  Scenario: Go back to previous page from the first page
+    Then I see these products on the page:
+      | Samsung galaxy s6   |
+      | Nokia lumia 1520    |
+      | Nexus 6             |
+      | Samsung galaxy s7   |
+      | Iphone 6 32gb       |
+      | Sony xperia z5      |
+      | HTC One M9          |
+      | Sony vaio i5        |
+      | Sony vaio i7        |
+    When I click the "Previous" button
+    Then I see these products on the page:
+      | Samsung galaxy s7   |
+      | Nexus 6             |
+      | Nokia lumia 1520    |
+      | Iphone 6 32gb       |
+      | Sony xperia z5      |
+      | HTC One M9          |
+      | Sony vaio i5        |
+      | Sony vaio i7        |
+      | Apple monitor 24    |
 
-@smoke_test_pagination_next
-Scenario: Click on Next button from page 1
-  Then the page should display the following products:
-    | Samsung galaxy s6   |
-    | Nokia lumia 1520    |
-    | Nexus 6             |
-    | Samsung galaxy s7   |
-    | Iphone 6 32gb       |
-    | Sony xperia z5      |
-    | HTC One M9          |
-    | Sony vaio i5        |
-    | Sony vaio i7        |
-  When I click the "Next" pagination button
-  Then the page should display the following products:
-    | Apple monitor 24    |
-    | MacBook air         |
-    | Dell i7 8gb         |
-    | 2017 Dell 15.6 Inch |
-    | ASUS Full HD        |
-    | MacBook Pro         |
+  @smoke_test_pagination_next
+  Scenario: Go to next page from the first page
+    Then I see these products on the page:
+      | Samsung galaxy s6   |
+      | Nokia lumia 1520    |
+      | Nexus 6             |
+      | Samsung galaxy s7   |
+      | Iphone 6 32gb       |
+      | Sony xperia z5      |
+      | HTC One M9          |
+      | Sony vaio i5        |
+      | Sony vaio i7        |
+    When I click the "Next" button
+    Then I see these products on the page:
+      | Apple monitor 24    |
+      | MacBook air         |
+      | Dell i7 8gb         |
+      | 2017 Dell 15.6 Inch |
+      | ASUS Full HD        |
+      | MacBook Pro         |
