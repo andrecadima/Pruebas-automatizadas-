@@ -1,26 +1,29 @@
-Then('the product {string} should be visible before filtering') do |expected_product|
+# ============================================
+# CONTEXTO (Given)
+# ============================================
+Given('I see the product {string} on the page') do |expected_product|
   product_name = find(:xpath, "//a[normalize-space()='#{expected_product}']", wait: 10).text
-
-  puts "***PRODUCT BEFORE FILTERING: #{product_name}"
-
-  if product_name != expected_product
-    raise "Product before filtering is wrong. Expected: #{expected_product} Actual: #{product_name}"
-  end
+  puts "***PRODUCT FOUND: #{product_name}"
+  expect(product_name).to eq(expected_product)
 end
 
-When('I click on the {string} category') do |category_name|
-  current_url_before_click = current_url
-  puts "***URL BEFORE FILTER: #{current_url_before_click}"
-
+# ============================================
+# ACCIONES (When)
+# ============================================
+When('I select the {string} category') do |category_name|
+  current_url_before = current_url
+  puts "***URL BEFORE: #{current_url_before}"
+  
   find(:xpath, "//a[@id='itemc' and normalize-space()='#{category_name}']", wait: 10).click
-
   sleep 3
-
-  current_url_after_click = current_url
-  puts "***URL AFTER FILTER: #{current_url_after_click}"
+  
+  puts "***CATEGORY SELECTED: #{category_name}"
 end
 
-Then('the page should remain on Demoblaze home') do
+# ============================================
+# VALIDACIONES (Then)
+# ============================================
+Then('I stay on the home page') do
   valid_urls = [
     'https://demoblaze.com/',
     'https://demoblaze.com/#',
@@ -31,20 +34,13 @@ Then('the page should remain on Demoblaze home') do
     'https://www.demoblaze.com/index.html',
     'https://www.demoblaze.com/index.html#'
   ]
-
-  unless valid_urls.include?(current_url)
-    raise "The page was reloaded or changed. Expected one of: #{valid_urls.join(' or ')} Actual URL: #{current_url}"
-  end
-
-  puts "***PAGE REMAINED ON DEMOBLAZE HOME: #{current_url}"
+  
+  expect(valid_urls).to include(current_url)
+  puts "***STAYED ON HOME PAGE: #{current_url}"
 end
 
-Then('the product {string} should be visible in the category list') do |expected_product|
+Then('I see the product {string} in the list') do |expected_product|
   product_name = find(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{expected_product}']", wait: 10).text
-
-  puts "***CATEGORY PRODUCT FOUND: #{product_name}"
-
-  if product_name != expected_product
-    raise "Filtered product is wrong. Expected: #{expected_product} Actual: #{product_name}"
-  end
+  puts "***PRODUCT FOUND IN CATEGORY: #{product_name}"
+  expect(product_name).to eq(expected_product)
 end

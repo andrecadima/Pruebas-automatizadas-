@@ -1,43 +1,43 @@
-Feature: Demoblaze product category filtering
-              As a demo user
-              I want to filter products by category
-  So that I can validate that products are displayed correctly by category
+Feature: Demoblaze product filtering by category
+  As a shopper
+  I want to see products by category
+  So that I can browse phones, laptops or monitors easily
 
-        Background:
-            Given I browse to Demoblaze page
+  Background:
+    Given I am on the Demoblaze home page
 
-        @maximize @demoblaze_phones_filter
-        Scenario Outline: Validate products after filtering by Phones category
-             Then the product "Samsung galaxy s6" should be visible before filtering
-             When I click on the "Phones" category
-             Then the page should remain on Demoblaze home
-              And the product "<product_name>" should be visible in the category list
+  @demoblaze_phones_filter
+  Scenario Outline: See phones after selecting the Phones category
+    Given I see the product "Samsung galaxy s6" on the page
+    When I select the "Phones" category
+    Then I stay on the home page
+    And I see the product "<product_name>" in the list
 
-        Examples:
-                  | product_name     |
-                  | Nokia lumia 1520 |
-                  | Nexus 6          |
+    Examples:
+      | product_name     |
+      | Nokia lumia 1520 |
+      | Nexus 6          |
 
-        @maximize @demoblaze_laptops_filter
-        Scenario Outline: Validate products after filtering by Laptops category
-             Then the product "Samsung galaxy s6" should be visible before filtering
-             When I click on the "Laptops" category
-             Then the page should remain on Demoblaze home
-              And the product "<product_name>" should be visible in the category list
+  @demoblaze_laptops_filter
+  Scenario Outline: See laptops after selecting the Laptops category
+    Given I see the product "Samsung galaxy s6" on the page
+    When I select the "Laptops" category
+    Then I stay on the home page
+    And I see the product "<product_name>" in the list
 
-        Examples:
-                  | product_name |
-                  | Sony vaio i5 |
-                  | Sony vaio i7 |
+    Examples:
+      | product_name |
+      | Sony vaio i5 |
+      | Sony vaio i7 |
 
-        @maximize @demoblaze_monitors_filter
-        Scenario Outline: Validate products after filtering by Monitors category
-             Then the product "Samsung galaxy s6" should be visible before filtering
-             When I click on the "Monitors" category
-             Then the page should remain on Demoblaze home
-              And the product "<product_name>" should be visible in the category list
+  @demoblaze_monitors_filter
+  Scenario Outline: See monitors after selecting the Monitors category
+    Given I see the product "Samsung galaxy s6" on the page
+    When I select the "Monitors" category
+    Then I stay on the home page
+    And I see the product "<product_name>" in the list
 
-        Examples:
-                  | product_name     |
-                  | Apple monitor 24 |
-                  | ASUS Full HD     |
+    Examples:
+      | product_name     |
+      | Apple monitor 24 |
+      | ASUS Full HD     |
