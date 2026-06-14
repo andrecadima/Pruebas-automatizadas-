@@ -1,20 +1,20 @@
-Feature: Demoblaze product detail validation
-              As a demo user
-              I want to open different product detail pages
-  So that I can validate product information before adding items to the cart
+Feature: Demoblaze product details
+  As a shopper
+  I want to view different product details
+  So that I can check product information before buying
 
-        Background:
-            Given I browse to Demoblaze page
+  Background:
+    Given I browse to Demoblaze page
 
-        @product_detail_validation
-        Scenario Outline: Validate product detail page information
-             When I open the product detail page for "<product_name>"
-             Then the product detail name should be "<product_name>"
-              And the product detail price should contain "<product_price>"
-              And the Add to cart button should be displayed
+  @product_detail_validation
+  Scenario Outline: View product details
+    When I open the product detail page for "<product_name>"
+    Then I see the product name "<product_name>"
+    And I see the product price "<product_price>"
+    And I see the "Add to cart" button
 
-        Examples:
-                  | product_name      | product_price |
-                  | Samsung galaxy s6 | $360          |
-                  | Nokia lumia 1520  | $820          |
-                  | Nexus 6           | $650          |
+    Examples:
+      | product_name      | product_price |
+      | Samsung galaxy s6 | $360          |
+      | Nokia lumia 1520  | $820          |
+      | Nexus 6           | $650          |
