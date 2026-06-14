@@ -1,3 +1,17 @@
+Given('I start with an empty Demoblaze cart') do
+  visit('/cart.html')
+  begin
+    while true
+      find(:xpath, "//tbody[@id='tbodyid']//a[text()='Delete']", wait: 5).click
+      sleep 2
+    end
+  rescue
+    puts "***CART IS EMPTY"
+  end
+  visit('/')
+  puts "***STARTED WITH EMPTY CART"
+end
+
 When('I add {string} to the cart for negative purchase test') do |product_name|
   puts "***ADDING PRODUCT FOR NEGATIVE PURCHASE TEST: #{product_name}"
 
