@@ -45,6 +45,19 @@ cucumber --format html --out report.html
 # Generar reporte JSON
 cucumber --format json --out report.json
 ```
+# Reporte HTML
+cucumber --format html --out reports/report.html
+
+# Reporte JSON
+cucumber --format json --out reports/report.json
+
+# Smoke Test con reporte
+cucumber -t @smoke --format html --out reports/smoke_report.html
+
+Resultados
+Tipo	    Escenarios	Steps	Tiempo	Estado
+Smoke Test	  16	     105	3m 17s	 100%
+Full Regression	50	     293	10m 23s	 100%
 
 ESTRUCTURA DEL PROYECTO
 features/
