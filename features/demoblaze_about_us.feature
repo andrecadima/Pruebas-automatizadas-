@@ -11,7 +11,7 @@ Feature: Demoblaze About Us section
     When I click on "About us" option
     Then the about us modal should be displayed
     And the about us modal should contain a video preview
-    And the about us modal should contain a message
+    And the about us modal should contain a "Play Video" button
 
   @about_us_video_source
   Scenario: Video loads correctly

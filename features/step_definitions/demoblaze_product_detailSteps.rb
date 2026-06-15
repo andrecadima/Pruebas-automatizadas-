@@ -1,5 +1,5 @@
 When('I open the product detail page for {string}') do |product_name|
-  puts "***OPENING PRODUCT DETAIL FOR: #{product_name}"
+
 
   find(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{product_name}']", wait: 10).click
 
@@ -30,6 +30,26 @@ end
 
 Then('the Add to cart button should be displayed') do
   expect(page).to have_selector(:xpath, "//a[normalize-space()='Add to cart']", wait: 10)
+ 
+end
 
-  puts "***ADD TO CART BUTTON IS DISPLAYED"
+# ============================================
+# NUEVOS STEPS PARA LENGUAJE NATURAL
+# ============================================
+
+Then('I see the product name {string}') do |expected_name|
+  actual_name = find(:css, '.name', wait: 10).text
+  expect(actual_name).to eq(expected_name)
+  puts "***PRODUCT NAME: #{actual_name}"
+end
+
+Then('I see the product price {string}') do |expected_price|
+  actual_price = find(:css, '.price-container', wait: 10).text
+  expect(actual_price).to include(expected_price)
+  puts "***PRODUCT PRICE: #{actual_price}"
+end
+
+Then('I see the {string} button') do |button_text|
+  expect(page).to have_link(button_text, wait: 10)
+ 
 end

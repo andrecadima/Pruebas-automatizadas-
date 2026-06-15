@@ -1,17 +1,17 @@
 Then('I should see the product {string} in the cart') do |product_name|
   expect(page).to have_selector(:xpath, "//td[normalize-space()='#{product_name}']", wait: 10)
-  puts "***PRODUCT #{product_name} IS IN CART"
+  
 end
 
 When('I click on the {string} button') do |button_text|
   find(:xpath, "//button[normalize-space()='#{button_text}']", wait: 10).click
-  puts "***CLICKED ON BUTTON: #{button_text}"
+puts "***CLICKED ON BUTTON: #{button_text}"
 end
 
 Then('the place order modal should be displayed') do
   modal = find(:css, '#orderModal', visible: true, wait: 10)
   expect(modal).to be_visible
-  puts "***PLACE ORDER MODAL IS DISPLAYED"
+
 end
 
 When('I fill in the purchase form with:') do |table|
@@ -24,7 +24,7 @@ When('I fill in the purchase form with:') do |table|
   find(:css, '#month', wait: 10).set(data['Month'])
   find(:css, '#year', wait: 10).set(data['Year'])
 
-  puts "***PURCHASE FORM COMPLETED FOR: #{data['Name']}"
+
 end
 
 Then('the success message should be {string}') do |expected_message|
@@ -42,7 +42,7 @@ Then('the success message should be {string}') do |expected_message|
   sweet_alert.find('button', text: 'OK', wait: 10).click
 
   sleep 2
-  puts "***SUCCESS MODAL CLOSED"
+
 end
 
 Then('I should remain on the cart page after purchase') do
@@ -55,5 +55,5 @@ Then('I should remain on the cart page after purchase') do
     raise "Wrong page after purchase. Expected one of: #{valid_urls.join(' or ')} Actual: #{current_url}"
   end
 
-  puts "***REMAINED ON CART PAGE AFTER PURCHASE: #{current_url}"
+
 end

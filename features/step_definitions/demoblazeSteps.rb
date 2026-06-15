@@ -2,20 +2,19 @@ Given('I browse to Demoblaze page') do
   visit('/')
   
   expect(page).to have_selector('#nava', wait: 20)
-  puts "***DEMOBLAZE HOME LOADED"
+  
 end
 
 When('I click on {string} option') do |option_text|
   click_link(option_text)
-  puts "***CLICKED ON OPTION: #{option_text}"
   
   if option_text == "Cart"
     expect(page).to have_selector('h2', text: 'Products', wait: 10)
-    puts "***CART PAGE LOADED"
+    
   elsif option_text == "Contact"
     sleep 1
     expect(page).to have_selector('#exampleModal', wait: 10)
-    puts "***CONTACT MODAL OPENED"
+    
   end
 end
 
@@ -31,13 +30,13 @@ end
 When('I enter a new random username in the sign up username field') do
   @random_user = "test_user_#{Time.now.to_i}"
   find(:css, '#sign-username', wait: 10).set(@random_user)
-  puts "***RANDOM USERNAME: #{@random_user}"
+  
 end
 
 When('I enter a new random password in the sign up password field') do
   @random_password = "pass_#{Time.now.to_i}"
   find(:css, '#sign-password', wait: 10).set(@random_password)
-  puts "***RANDOM PASSWORD: #{@random_password}"
+  
 end
 
 When('I enter the registered username in the log in username field') do
@@ -54,7 +53,7 @@ end
 
 When('I accept the alert') do
   page.driver.browser.switch_to.alert.accept
-  puts "***ALERT ACCEPTED"
+  
 end
 
 Then('the alert message should be {string}') do |expected_message|
@@ -69,7 +68,7 @@ Then('the alert message should be {string}') do |expected_message|
   end
 
   actual_message = alert.text
-  puts "***ALERT MESSAGE: #{actual_message}"
+  
 
   if actual_message != expected_message
     raise "Alert message is wrong. Expected: #{expected_message} Actual: #{actual_message}"
@@ -84,7 +83,7 @@ Then('the welcome message should show the registered username') do
   welcome_element = find(:css, '#nameofuser', wait: 10)
   actual_message = welcome_element.text
 
-  puts "***WELCOME MESSAGE: #{actual_message}"
+  
 
   if actual_message != expected_message
     raise "Welcome message is wrong. Expected: #{expected_message} Actual: #{actual_message}"
@@ -107,7 +106,7 @@ Given('I am logged in with a registered user') do
     raise "Login failed. Expected: #{expected_message} Actual: #{actual_message}"
   end
   
-  puts "***USER LOGGED IN: #{ENV['DEMOBLAZE_USER']}"
+  
 end
 
 # ============ ABOUT US STEPS ============
@@ -115,13 +114,13 @@ end
 Then('the about us modal should be displayed') do
   modal = find(:css, '#videoModal', wait: 10)
   expect(modal).to be_visible
-  puts "***ABOUT US MODAL DISPLAYED"
+  
 end
 
 Then('the about us modal should contain a video preview') do
   within('#videoModal') do
     expect(page).to have_selector('video, iframe, .video-js', wait: 10)
-    puts "***VIDEO PREVIEW FOUND"
+    
   end
 end
 
@@ -130,7 +129,7 @@ Then('the about us modal should contain a message') do
     body = find('.modal-body', wait: 10)
     message = body.text.strip
     expect(message.length).to be > 0
-    puts "***ABOUT US MESSAGE FOUND"
+    
   end
 end
 
@@ -138,7 +137,7 @@ Then('the about us video source should be loaded') do
   within('#videoModal') do
     video = find('video', wait: 10)
     src = video[:src]
-    puts "***VIDEO SRC: #{src}"
+    
     expect(src).not_to be_nil
     expect(src).not_to eq('')
   end
@@ -149,7 +148,7 @@ Then('the about us video player should have playback controls') do
     expect(page).to have_selector('#example-video', wait: 10)
     expect(page).to have_selector('.vjs-play-control', visible: :all, wait: 10)
     expect(page).to have_selector('.vjs-progress-control', visible: :all, wait: 10)
-    puts "***VIDEO PLAYBACK CONTROLS FOUND"
+    
   end
 end
 
@@ -169,7 +168,7 @@ When('I click the "Close" button in the about us modal') do
   end
   
   sleep 2
-  puts "***CLICKED: Close button in About Us modal"
+  
 end
 
 When('I click the "X" button in the about us modal') do
@@ -182,12 +181,12 @@ When('I click the "X" button in the about us modal') do
   end
   
   sleep 2
-  puts "***CLICKED: X button in About Us modal"
+  
 end
 
 Then('the about us modal should be closed') do
   expect(page).to have_no_selector('#videoModal.show', wait: 10)
-  puts "***ABOUT US MODAL CLOSED"
+  
 end
 
 When('I play the about us video') do
@@ -201,7 +200,7 @@ When('I play the about us video') do
     end
   end
   sleep 3
-  puts "***VIDEO PLAY STARTED"
+  
 end
 
 Then('the about us video should be playing') do
@@ -225,28 +224,48 @@ Then('the about us video should be playing') do
   end
   
   expect(playing).to eq(true)
-  puts "***VIDEO IS PLAYING"
+  
 end
 
 # ============ LOGOUT STEPS ============
 
 Then('the welcome message should be visible before logout') do
   expect(page).to have_selector('#nameofuser', visible: true, wait: 10)
-  puts "***WELCOME MESSAGE IS VISIBLE"
+  
 end
 
 Then('the Log in option should be visible after logout') do
   expect(page).to have_link('Log in', visible: true, wait: 10)
-  puts "***LOG IN OPTION IS VISIBLE"
+
 end
 
 Then('the Sign up option should be visible after logout') do
   expect(page).to have_link('Sign up', visible: true, wait: 10)
-  puts "***SIGN UP OPTION IS VISIBLE"
+  
 end
 
 Then('the welcome message should not be visible after logout') do
   expect(page).to have_no_selector('#nameofuser', wait: 10)
-  puts "***WELCOME MESSAGE NOT VISIBLE"
+  
 end
 
+Given('I start with an empty Demoblaze cart') do
+  visit('/cart.html')
+  begin
+    while true
+      find(:xpath, "//tbody[@id='tbodyid']//a[text()='Delete']", wait: 5).click
+      sleep 2
+    end
+  rescue
+    
+  end
+  visit('/')
+  
+end
+
+Then('the about us modal should contain a {string} button') do |button_text|
+  within('#videoModal') do
+    expect(page).to have_selector('.vjs-big-play-button', wait: 10)
+    
+  end
+end

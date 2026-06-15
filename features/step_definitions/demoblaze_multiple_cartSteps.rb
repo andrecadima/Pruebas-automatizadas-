@@ -6,7 +6,7 @@ When('I add these products to the cart:') do |table|
   products.each do |row|
     product_name = row['Product']
 
-    puts "***ADDING PRODUCT: #{product_name}"
+    
 
     expect(page).to have_selector(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{product_name}']", wait: 10)
 
@@ -53,7 +53,7 @@ Then('I should see these products in the cart:') do |table|
   products = table.hashes
   sleep 3
   cart_text = find(:css, '#tbodyid', wait: 10).text
-  puts "***CART CONTENT:"
+  
   puts cart_text
 
   products.each do |row|
@@ -61,6 +61,6 @@ Then('I should see these products in the cart:') do |table|
     unless cart_text.include?(product_name)
       raise "Product not found. Expected: #{product_name}. Cart content: #{cart_text}"
     end
-    puts "***PRODUCT FOUND: #{product_name}"
+    
   end
 end

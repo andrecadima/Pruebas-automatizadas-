@@ -4,13 +4,34 @@
 Then('the contact modal should be displayed') do
   modal = find(:css, '#exampleModal', wait: 10)
   expect(modal).to be_visible
-  puts "***CONTACT MODAL IS DISPLAYED"
+  
+  # Validaciones precisas de los campos
+  within('#exampleModal') do
+    expect(page).to have_content('New message')
+    
+    email_field = find('#recipient-email')
+    expect(email_field).to be_visible
+    expect(email_field[:type]).to eq('email')
+    expect(email_field[:placeholder]).to eq('Email')
+    
+    name_field = find('#recipient-name')
+    expect(name_field).to be_visible
+    expect(name_field[:type]).to eq('text')
+    expect(name_field[:placeholder]).to eq('Name')
+    
+    message_field = find('#message-text')
+    expect(message_field).to be_visible
+    expect(message_field[:tag_name]).to eq('textarea')
+    expect(message_field[:placeholder]).to eq('Message')
+  end
+  
+  
 end
 
 Then('the contact modal should still be displayed') do
   modal = find(:css, '#exampleModal', wait: 10)
   expect(modal).to be_visible
-  puts "***CONTACT MODAL STILL DISPLAYED AFTER ALERT"
+  
 end
 
 # ============================================
@@ -28,7 +49,7 @@ end
 
 When('I fill in the contact message with {string}') do |message|
   find(:css, '#message-text', wait: 10).set(message)
-  puts "***MESSAGE FILLED: #{message}"
+  
 end
 
 # ============================================
@@ -37,19 +58,19 @@ end
 Then('the contact email field should contain {string}') do |expected_email|
   actual_email = find(:css, '#recipient-email', wait: 10).value
   expect(actual_email).to eq(expected_email)
-  puts "***EMAIL PERSISTS: #{actual_email}"
+  
 end
 
 Then('the contact name field should contain {string}') do |expected_name|
   actual_name = find(:css, '#recipient-name', wait: 10).value
   expect(actual_name).to eq(expected_name)
-  puts "***NAME PERSISTS: #{actual_name}"
+  
 end
 
 Then('the contact message field should contain {string}') do |expected_message|
   actual_message = find(:css, '#message-text', wait: 10).text
   expect(actual_message).to eq(expected_message)
-  puts "***MESSAGE PERSISTS: #{actual_message}"
+  
 end
 
 # ============================================
@@ -68,7 +89,7 @@ When('I click the {string} button in the contact modal') do |button_text|
     puts "***CLICKED SEND MESSAGE, WAITING FOR ALERT..."
     sleep 3
   end
-  puts "***CLICKED: #{button_text} button"
+  
 end
 
 # ============================================
@@ -76,7 +97,7 @@ end
 # ============================================
 Then('the contact modal should be closed') do
   expect(page).to have_no_selector('#exampleModal', visible: true, wait: 5)
-  puts "***CONTACT MODAL IS CLOSED"
+  
 end
 
 # ============================================
@@ -88,7 +109,7 @@ Then('the system should handle the empty Contact form submission') do
     puts "***ALERT SHOWN: #{alert.text}"
     alert.accept
   rescue
-    puts "***NO ALERT, FORM HANDLED EMPTY FIELDS"
+  
   end
 end
 
@@ -99,24 +120,32 @@ end
 Given('I am on the Demoblaze home page') do
   visit('/')
   expect(page).to have_selector('#nava', wait: 20)
-  puts "***DEMOBLAZE HOME LOADED"
+  
 end
 
 When('I open the contact form') do
   click_link("Contact")
-  puts "***CONTACT FORM OPENED"
+  
 end
 
 Then('I can see the contact window') do
   expect(page).to have_selector('#exampleModal', visible: true, wait: 10)
-  puts "***CONTACT WINDOW IS VISIBLE"
+  
+  within('#exampleModal') do
+    expect(page).to have_content('New message')
+    expect(page).to have_selector('#recipient-email', visible: true)
+    expect(page).to have_selector('#recipient-name', visible: true)
+    expect(page).to have_selector('#message-text', visible: true)
+  end
+  
+  
 end
 
 When('I send the message without filling any field') do
   within('#exampleModal') do
     find(:xpath, "//button[text()='Send message']", wait: 10).click
   end
-  puts "***SENT MESSAGE WITH EMPTY FIELDS"
+  
 end
 
 Then('I see a message telling me to complete the form') do
@@ -125,7 +154,7 @@ Then('I see a message telling me to complete the form') do
     puts "***ALERT MESSAGE: #{alert.text}"
     alert.accept
   rescue
-    puts "***NO ALERT SHOWN"
+  
   end
 end
 
@@ -137,12 +166,12 @@ end
 When('I close the window') do
   find(:xpath, "//div[@id='exampleModal']//button[text()='Close']", wait: 10).click
   sleep 1
-  puts "***WINDOW CLOSED"
+  
 end
 
 When('I open the contact form again') do
   click_link("Contact")
-  puts "***CONTACT FORM OPENED AGAIN"
+  
 end
 
 Then('my name should still be {string}') do |expected_name|
@@ -159,7 +188,7 @@ end
 When('I close the window using the X button') do
   find(:xpath, "//div[@id='exampleModal']//button[@class='close']", wait: 10).click
   sleep 1
-  puts "***WINDOW CLOSED WITH X BUTTON"
+  
 end
 
 Then('my email should still be {string}') do |expected_email|
@@ -177,7 +206,7 @@ When('I send the message') do
   within('#exampleModal') do
     find(:xpath, "//button[text()='Send message']", wait: 10).click
   end
-  puts "***MESSAGE SENT"
+  
 end
 
 Then('I see a confirmation saying {string}') do |expected_message|
@@ -194,5 +223,5 @@ When('I fill the contact form with:') do |table|
   find(:css, '#recipient-email', wait: 10).set(data['Email'])
   find(:css, '#recipient-name', wait: 10).set(data['Name'])
   find(:css, '#message-text', wait: 10).set(data['Message'])
-  puts "***CONTACT FORM FILLED"
+  
 end

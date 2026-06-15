@@ -1,14 +1,14 @@
 Then('I see the product {string} in the cart') do |product_name|
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
-  puts "***CART CONTENT:"
+
   puts cart_text
 
   unless cart_text.include?(product_name)
     raise "Product not found in cart. Expected: #{product_name}. Cart content: #{cart_text}"
   end
 
-  puts "***PRODUCT FOUND: #{product_name}"
+  
 end
 
 When('I delete the product {string} from the cart') do |product_name|
@@ -22,7 +22,7 @@ When('I delete the product {string} from the cart') do |product_name|
 
   sleep 4
 
-  puts "***DELETE CLICKED FOR PRODUCT: #{product_name}"
+  
 end
 
 Then('I should not see the product {string} in the cart') do |product_name|
@@ -37,7 +37,7 @@ Then('I should not see the product {string} in the cart') do |product_name|
     raise "Product still visible after delete. Product: #{product_name}. Cart content: #{cart_text}"
   end
 
-  puts "***PRODUCT REMOVED: #{product_name}"
+  
 end
 
 Given('my shopping cart is empty') do
@@ -48,8 +48,8 @@ Given('my shopping cart is empty') do
       sleep 2
     end
   rescue
-    puts "***CART IS EMPTY"
+  
   end
   visit('/')
-  puts "***CART IS EMPTY"
+  
 end

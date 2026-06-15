@@ -32,9 +32,13 @@ end
 
 Capybara.default_driver = :selenium_chrome
 
-# Limpiar cookies después de cada escenario
+# Limpiar cookies y storage después de cada escenario
+# Limpiar solo cookies (más seguro)
 After do
-  page.driver.browser.manage.delete_all_cookies
+  begin
+    page.driver.browser.manage.delete_all_cookies
+  rescue
+    # Ignorar errores
+  end
 end
-
 Capybara::Screenshot.autosave_on_failure = true

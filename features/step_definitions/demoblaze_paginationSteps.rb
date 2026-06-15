@@ -4,7 +4,7 @@
 Given('I am on the first page of products') do
   visit '/'
   sleep 2
-  puts "***ON FIRST PAGE OF PRODUCTS"
+  
 end
 
 # ============================================

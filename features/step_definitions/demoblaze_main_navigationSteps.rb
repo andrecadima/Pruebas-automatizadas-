@@ -1,8 +1,8 @@
 When('I click on {string} from the menu') do |menu_option|
-  puts "***CLICKING MENU OPTION: #{menu_option}"
+  
   click_link(menu_option)
   sleep 2
-  puts "***CLICKED: #{menu_option}"
+  
 end
 
 Then('I see the {string} section') do |menu_option|
@@ -20,7 +20,7 @@ Then('I see the {string} section') do |menu_option|
     ]
     expect(valid_urls).to include(current_url)
     expect(page).to have_selector(:xpath, "//a[contains(@class, 'hrefch')]", wait: 10)
-    puts "***HOME PAGE DISPLAYED"
+    
 
   when 'Contact'
     modal = find(:css, '#exampleModal', visible: true, wait: 10)
@@ -31,7 +31,7 @@ Then('I see the {string} section') do |menu_option|
       expect(page).to have_selector('#recipient-name', wait: 10)
       expect(page).to have_selector('#message-text', wait: 10)
     end
-    puts "***CONTACT FORM DISPLAYED"
+  
 
   when 'About us'
     modal = find(:css, '#videoModal', visible: true, wait: 10)
@@ -40,12 +40,12 @@ Then('I see the {string} section') do |menu_option|
       expect(page).to have_content('About us')
       expect(page).to have_selector('video, iframe, .video-js', wait: 10)
     end
-    puts "***ABOUT US SECTION DISPLAYED"
+  
 
   when 'Cart'
     expect(page).to have_current_path('/cart.html', wait: 10)
     expect(page).to have_selector('#tbodyid', wait: 10)
-    puts "***CART PAGE DISPLAYED"
+  
 
   when 'Log in'
     modal = find(:css, '#logInModal', visible: true, wait: 10)
@@ -55,7 +55,7 @@ Then('I see the {string} section') do |menu_option|
       expect(page).to have_selector('#loginusername', wait: 10)
       expect(page).to have_selector('#loginpassword', wait: 10)
     end
-    puts "***LOG IN FORM DISPLAYED"
+  
 
   when 'Sign up'
     modal = find(:css, '#signInModal', visible: true, wait: 10)
@@ -65,7 +65,7 @@ Then('I see the {string} section') do |menu_option|
       expect(page).to have_selector('#sign-username', wait: 10)
       expect(page).to have_selector('#sign-password', wait: 10)
     end
-    puts "***SIGN UP FORM DISPLAYED"
+  
 
   else
     raise "Unknown menu option: #{menu_option}"
