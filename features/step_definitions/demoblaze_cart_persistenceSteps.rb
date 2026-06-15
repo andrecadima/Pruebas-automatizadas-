@@ -1,7 +1,7 @@
 
 
 When('I add the product {string}') do |product_name|
-  puts "***ADDING PRODUCT: #{product_name}"
+  
 
   find(
     :xpath,
@@ -33,7 +33,7 @@ When('I add the product {string}') do |product_name|
     end
   end
 
-  puts "***ALERT: #{alert.text}"
+  
   alert.accept
 
   sleep 2
@@ -76,10 +76,9 @@ end
 Then('the product {string} should still be present in the cart') do |product_name|
   sleep 3
   cart_text = find(:css, '#tbodyid', wait: 10).text
-  puts "***CART CONTENT:"
-  puts cart_text
+  
   unless cart_text.include?(product_name)
     raise "Product disappeared from cart. Expected: #{product_name}"
   end
-  puts "***PRODUCT PERSISTED IN CART: #{product_name}"
+  
 end

@@ -2,7 +2,7 @@ Then('I see the product {string} in the cart') do |product_name|
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
 
-  puts cart_text
+  
 
   unless cart_text.include?(product_name)
     raise "Product not found in cart. Expected: #{product_name}. Cart content: #{cart_text}"
@@ -12,7 +12,7 @@ Then('I see the product {string} in the cart') do |product_name|
 end
 
 When('I delete the product {string} from the cart') do |product_name|
-  puts "***DELETING PRODUCT: #{product_name}"
+  
 
   delete_xpath = "//tr[td[normalize-space()='#{product_name}']]//a[normalize-space()='Delete']"
 
@@ -30,8 +30,7 @@ Then('I should not see the product {string} in the cart') do |product_name|
 
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
-  puts "***CART CONTENT AFTER DELETE:"
-  puts cart_text
+ 
 
   if cart_text.include?(product_name)
     raise "Product still visible after delete. Product: #{product_name}. Cart content: #{cart_text}"

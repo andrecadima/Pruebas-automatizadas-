@@ -56,7 +56,7 @@ Then('the cart should display {string} for negative purchase test') do |product_
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
 
-  puts cart_text
+  
 
   unless cart_text.include?(product_name)
     raise "Product not found in cart. Expected: #{product_name}. Cart content: #{cart_text}"
@@ -103,7 +103,7 @@ When('I complete the negative purchase form leaving {string} empty') do |missing
   @missing_field = missing_field
 
 
-  puts "***MISSING FIELD: #{missing_field}"
+  
 end
 
 When('I confirm the purchase for negative purchase test') do
@@ -111,7 +111,7 @@ When('I confirm the purchase for negative purchase test') do
 
   sleep 2
 
-  puts "***PURCHASE BUTTON CLICKED FOR NEGATIVE PURCHASE TEST"
+  
 end
 
 Then('the system should handle the missing {string} field in the purchase form') do |missing_field|

@@ -13,7 +13,7 @@ Feature: Demoblaze Contact form
     When I send the message without filling any field
     Then I see a message telling me to complete the form
 
-  @smoke_test_contact_bug_report
+  @smoke @smoke_test_contact_bug_report
   Scenario: Contact form saves information after closing
     When I open the contact form
     Then I can see the contact window

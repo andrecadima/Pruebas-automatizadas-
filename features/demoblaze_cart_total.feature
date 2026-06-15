@@ -7,7 +7,7 @@ Feature: Demoblaze cart total validation
     Given I browse to Demoblaze page
     And I start with an empty Demoblaze cart
 
-  @cart_total_validation
+  @smoke @cart_total_validation
   Scenario: Validate cart total with multiple products
     When I add products with prices to the cart:
       | Product           | Price |

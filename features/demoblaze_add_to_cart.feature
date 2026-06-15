@@ -7,7 +7,7 @@ Feature: Demoblaze add products to cart
     Given I browse to Demoblaze page
     And I start with an empty Demoblaze cart
 
-  @add_to_cart_single_product
+  @smoke @add_to_cart_single_product
   Scenario Outline: Add a single product to cart
     When I click on the "<product>" product
     Then the product detail page should be displayed for "<product>"

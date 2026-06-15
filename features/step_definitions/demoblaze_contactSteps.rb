@@ -39,12 +39,12 @@ end
 # ============================================
 When('I fill in the contact email with {string}') do |email|
   find(:css, '#recipient-email', wait: 10).set(email)
-  puts "***EMAIL FILLED: #{email}"
+  
 end
 
 When('I fill in the contact name with {string}') do |name|
   find(:css, '#recipient-name', wait: 10).set(name)
-  puts "***NAME FILLED: #{name}"
+  
 end
 
 When('I fill in the contact message with {string}') do |message|
@@ -86,7 +86,8 @@ When('I click the {string} button in the contact modal') do |button_text|
     sleep 1
   when "send message"
     find(:xpath, "//div[@id='exampleModal']//button[text()='Send message']", wait: 10).click
-    puts "***CLICKED SEND MESSAGE, WAITING FOR ALERT..."
+    
+    
     sleep 3
   end
   
@@ -106,7 +107,7 @@ end
 Then('the system should handle the empty Contact form submission') do
   begin
     alert = page.driver.browser.switch_to.alert
-    puts "***ALERT SHOWN: #{alert.text}"
+    
     alert.accept
   rescue
   
@@ -151,7 +152,7 @@ end
 Then('I see a message telling me to complete the form') do
   begin
     alert = page.driver.browser.switch_to.alert
-    puts "***ALERT MESSAGE: #{alert.text}"
+    
     alert.accept
   rescue
   
@@ -160,7 +161,7 @@ end
 
 When('I write my name as {string}') do |name|
   find(:css, '#recipient-name', wait: 10).set(name)
-  puts "***NAME WRITTEN: #{name}"
+  
 end
 
 When('I close the window') do
@@ -177,12 +178,12 @@ end
 Then('my name should still be {string}') do |expected_name|
   actual_name = find(:css, '#recipient-name', wait: 10).value
   expect(actual_name).to eq(expected_name)
-  puts "***NAME STILL: #{actual_name}"
+  
 end
 
 When('I write my email as {string}') do |email|
   find(:css, '#recipient-email', wait: 10).set(email)
-  puts "***EMAIL WRITTEN: #{email}"
+  
 end
 
 When('I close the window using the X button') do
@@ -194,12 +195,12 @@ end
 Then('my email should still be {string}') do |expected_email|
   actual_email = find(:css, '#recipient-email', wait: 10).value
   expect(actual_email).to eq(expected_email)
-  puts "***EMAIL STILL: #{actual_email}"
+  
 end
 
 When('I write a message saying {string}') do |message|
   find(:css, '#message-text', wait: 10).set(message)
-  puts "***MESSAGE WRITTEN: #{message}"
+  
 end
 
 When('I send the message') do
@@ -213,7 +214,7 @@ Then('I see a confirmation saying {string}') do |expected_message|
   wait = Selenium::WebDriver::Wait.new(timeout: 10)
   alert = wait.until { page.driver.browser.switch_to.alert }
   actual_message = alert.text
-  puts "***CONFIRMATION: #{actual_message}"
+  
   expect(actual_message).to eq(expected_message)
   alert.accept
 end

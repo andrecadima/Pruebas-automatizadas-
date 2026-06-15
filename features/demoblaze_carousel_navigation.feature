@@ -11,7 +11,7 @@ Feature: Demoblaze Carousel Navigation
         Scenario: Carousel is displayed
              Then the carousel should be visible
 
-        @carousel_next
+        @smoke @carousel_next
         Scenario: Navigate to next carousel image
              Then the carousel should be visible
              When I click the next carousel button

@@ -9,8 +9,7 @@ When('I add products with prices to the cart:') do |table|
 
     @expected_cart_total += product_price
 
-    puts "***ADDING PRODUCT TO CART: #{product_name}"
-    puts "***EXPECTED PRODUCT PRICE: #{product_price}"
+    
 
     # Click en el producto
     find(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{product_name}']", wait: 10).click
@@ -38,7 +37,7 @@ When('I add products with prices to the cart:') do |table|
     end
 
     actual_alert = alert.text.strip
-    puts "***ALERT MESSAGE: #{actual_alert}"
+    
 
     unless actual_alert == 'Product added' || actual_alert == 'Product added.'
       raise "Wrong alert message. Expected: Product added Actual: #{actual_alert}"
@@ -54,7 +53,7 @@ When('I add products with prices to the cart:') do |table|
     cart_text = find(:css, '#tbodyid', wait: 10).text
     
     if cart_text.include?(product_name)
-      puts "***PRODUCT CONFIRMED IN CART: #{product_name}"
+      
     else
       raise "ERROR: Product #{product_name} was not added to cart successfully"
     end
@@ -63,10 +62,10 @@ When('I add products with prices to the cart:') do |table|
     visit '/'
     sleep 2
 
-    puts "***PRODUCT ADDED SUCCESSFULLY: #{product_name}"
+    
   end
 
-  puts "***EXPECTED CART TOTAL: #{@expected_cart_total}"
+  
 end
 
 Then('the cart total should be {int}') do |expected_total|
@@ -78,10 +77,7 @@ Then('the cart total should be {int}') do |expected_total|
 
   # También mostrar los productos en el carrito para depuración
   cart_text = find(:css, '#tbodyid', wait: 10).text
-  puts "***CART CONTENTS: #{cart_text}"
-
-  puts "***EXPECTED CART TOTAL: #{expected_total}"
-  puts "***ACTUAL CART TOTAL: #{actual_total}"
+  
 
   if actual_total != expected_total
     raise "Cart total is wrong. Expected: #{expected_total} Actual: #{actual_total}"
