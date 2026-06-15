@@ -1,0 +1,8 @@
+
+# Reportes y screenshots generados por pruebas
+reports/*.png
+reports/*.html
+screenshot_*.png
+screenshot_*.html
+*.png
+*.html

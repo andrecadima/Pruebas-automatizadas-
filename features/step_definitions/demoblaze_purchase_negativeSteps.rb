@@ -1,5 +1,7 @@
+
+
 When('I add {string} to the cart for negative purchase test') do |product_name|
-  puts "***ADDING PRODUCT FOR NEGATIVE PURCHASE TEST: #{product_name}"
+
 
   expect(page).to have_selector(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{product_name}']", wait: 10)
 
@@ -36,7 +38,7 @@ When('I add {string} to the cart for negative purchase test') do |product_name|
 
   sleep 3
 
-  puts "***PRODUCT ADDED FOR NEGATIVE PURCHASE TEST: #{product_name}"
+
 end
 
 When('I open the cart page for negative purchase test') do
@@ -47,20 +49,20 @@ When('I open the cart page for negative purchase test') do
   expect(page).to have_current_path('/cart.html', wait: 10)
   expect(page).to have_selector('#tbodyid', wait: 10)
 
-  puts "***CART PAGE OPENED FOR NEGATIVE PURCHASE TEST"
+
 end
 
 Then('the cart should display {string} for negative purchase test') do |product_name|
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
-  puts "***CART CONTENT FOR NEGATIVE PURCHASE TEST:"
+
   puts cart_text
 
   unless cart_text.include?(product_name)
     raise "Product not found in cart. Expected: #{product_name}. Cart content: #{cart_text}"
   end
 
-  puts "***PRODUCT FOUND IN CART FOR NEGATIVE PURCHASE TEST: #{product_name}"
+
 end
 
 When('I click the Place Order button for negative purchase test') do
@@ -68,7 +70,7 @@ When('I click the Place Order button for negative purchase test') do
 
   sleep 2
 
-  puts "***CLICKED PLACE ORDER BUTTON FOR NEGATIVE PURCHASE TEST"
+
 end
 
 Then('the purchase modal should be visible for negative purchase test') do
@@ -76,7 +78,7 @@ Then('the purchase modal should be visible for negative purchase test') do
 
   expect(modal).to be_visible
 
-  puts "***PURCHASE MODAL IS VISIBLE FOR NEGATIVE PURCHASE TEST"
+
 end
 
 When('I complete the negative purchase form leaving {string} empty') do |missing_field|
@@ -100,7 +102,7 @@ When('I complete the negative purchase form leaving {string} empty') do |missing
 
   @missing_field = missing_field
 
-  puts "***NEGATIVE PURCHASE FORM COMPLETED"
+
   puts "***MISSING FIELD: #{missing_field}"
 end
 
@@ -141,5 +143,5 @@ Then('the system should handle the missing {string} field in the purchase form')
 
   expect(page).to have_selector('#orderModal', visible: true, wait: 10)
 
-  puts "***SYSTEM BLOCKED PURCHASE WITH MISSING FIELD: #{missing_field}"
+  
 end

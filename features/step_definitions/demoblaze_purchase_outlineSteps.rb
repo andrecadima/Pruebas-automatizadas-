@@ -1,5 +1,6 @@
+
 When('I add {string} to the cart for purchase outline') do |product_name|
-  puts "***ADDING PRODUCT FOR PURCHASE OUTLINE: #{product_name}"
+  
 
   expect(page).to have_selector(:xpath, "//a[contains(@class, 'hrefch') and normalize-space()='#{product_name}']", wait: 10)
 
@@ -36,7 +37,7 @@ When('I add {string} to the cart for purchase outline') do |product_name|
 
   sleep 3
 
-  puts "***PRODUCT ADDED FOR PURCHASE OUTLINE: #{product_name}"
+  
 end
 
 When('I open the cart page for purchase outline') do
@@ -47,20 +48,20 @@ When('I open the cart page for purchase outline') do
   expect(page).to have_current_path('/cart.html', wait: 10)
   expect(page).to have_selector('#tbodyid', wait: 10)
 
-  puts "***CART PAGE OPENED FOR PURCHASE OUTLINE"
+ 
 end
 
 Then('the cart should display {string} for purchase outline') do |product_name|
   cart_text = find(:css, '#tbodyid', wait: 10).text
 
-  puts "***CART CONTENT FOR PURCHASE OUTLINE:"
-  puts cart_text
+
+
 
   unless cart_text.include?(product_name)
     raise "Product not found in cart. Expected: #{product_name}. Cart content: #{cart_text}"
   end
 
-  puts "***PRODUCT FOUND IN CART FOR PURCHASE OUTLINE: #{product_name}"
+
 end
 
 When('I click the Place Order button for purchase outline') do
@@ -68,7 +69,7 @@ When('I click the Place Order button for purchase outline') do
 
   sleep 2
 
-  puts "***CLICKED PLACE ORDER BUTTON FOR PURCHASE OUTLINE"
+
 end
 
 Then('the purchase modal should be visible for purchase outline') do
@@ -76,7 +77,7 @@ Then('the purchase modal should be visible for purchase outline') do
 
   expect(modal).to be_visible
 
-  puts "***PURCHASE MODAL IS VISIBLE FOR PURCHASE OUTLINE"
+
 end
 
 When('I complete the purchase outline form with {string}, {string}, {string}, {string}, {string} and {string}') do |name, country, city, card, month, year|
@@ -101,7 +102,7 @@ When('I confirm the purchase for purchase outline') do
 
   sleep 2
 
-  puts "***PURCHASE CONFIRMED FOR PURCHASE OUTLINE"
+  
 end
 
 Then('the purchase outline success message should be {string}') do |expected_message|
@@ -121,5 +122,5 @@ Then('the purchase outline success message should be {string}') do |expected_mes
 
   sleep 2
 
-  puts "***PURCHASE SUCCESS MODAL CLOSED"
+
 end

@@ -1,36 +1,44 @@
+require 'selenium-webdriver'
 begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'capybara-screenshot/cucumber'
+require 'dotenv'
 
-#DemoBlaze credentials
-ENV['DEMOBLAZE_USER'] = 'andrepeje123bv33xcz'
-ENV['DEMOBLAZE_PASSWORD'] = '1234'
+Dotenv.load
 
-Capybara.default_driver = :selenium
+# Especificar la ruta de ChromeDriver
+Selenium::WebDriver::Chrome::Service.driver_path = 'C:/Ruby33-x64/bin/chromedriver.exe'
 
-# Set the host the Capybara tests should be run against
-Capybara.app_host = ENV["CAPYBARA_HOST"]
-
-# Set the time (in seconds) Capybara should wait for elements to appear on the page
+# Configuración de Capybara
 Capybara.default_max_wait_time = 15
-Capybara.default_driver = :selenium
-Capybara.app_host = "https://demoblaze.com"
-
-class CapybaraDriverRegistrar
-  # register a Selenium driver for the given browser to run on the localhost
-  def self.register_selenium_driver(browser)
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => browser)
-    end
-  end
-
-end
-# Register various Selenium drivers
-#CapybaraDriverRegistrar.register_selenium_driver(:internet_explorer)
-#CapybaraDriverRegistrar.register_selenium_driver(:firefox)
-CapybaraDriverRegistrar.register_selenium_driver(:chrome)
 Capybara.run_server = false
-#World(Capybara)
 
+# URL base desde variable de entorno
+BASE_URL = ENV['BASE_URL'] || 'https://www.demoblaze.com'
+Capybara.app_host = BASE_URL
+
+# Registrar driver de Chrome
+Capybara.register_driver :selenium_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--disable-gpu')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  options.add_argument('--window-size=1400,900')
+  
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+Capybara.default_driver = :selenium_chrome
+
+# Limpiar cookies y storage después de cada escenario
+# Limpiar solo cookies (más seguro)
+After do
+  begin
+    page.driver.browser.manage.delete_all_cookies
+  rescue
+    # Ignorar errores
+  end
+end
+Capybara::Screenshot.autosave_on_failure = true

@@ -1,16 +1,16 @@
 Feature: Demoblaze delete product from cart
-              As a demo user
-              I want to delete a product from the cart
-  So that I can validate that the cart removes products correctly
+  As a shopper
+  I want to remove a product from the shopping cart
+  So that I can correct my order before buying
 
-        Background:
-            Given I browse to Demoblaze page
-              And I start with an empty Demoblaze cart
+  Background:
+    Given I am on the Demoblaze home page
+    And my shopping cart is empty
 
-        @delete_product_from_cart
-        Scenario: Delete Samsung galaxy s6 from the cart
-             When I add the product "Samsung galaxy s6" to the cart for deletion test
-              And I open the cart page for deletion test
-             Then the cart should show the product "Samsung galaxy s6" for deletion test
-             When I delete the product "Samsung galaxy s6" from the cart for deletion test
-             Then the cart should not show the product "Samsung galaxy s6" for deletion test
+  @delete_product_from_cart
+  Scenario: Remove Samsung galaxy s6 from the cart
+    When I add the product "Samsung galaxy s6" to the cart
+    And I open the cart page
+    Then I see the product "Samsung galaxy s6" in the cart
+    When I delete the product "Samsung galaxy s6" from the cart
+    Then I should not see the product "Samsung galaxy s6" in the cart

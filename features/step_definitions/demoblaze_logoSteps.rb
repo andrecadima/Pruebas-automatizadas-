@@ -4,7 +4,7 @@
 When('I click on the logo') do
   find(:css, '#nava', wait: 10).click
   sleep 1
-  puts "***CLICKED ON LOGO (PRODUCT STORE)"
+  
 end
 
 Then('I should be redirected to the home page') do
@@ -16,7 +16,7 @@ Then('I should be redirected to the home page') do
     'https://www.demoblaze.com/'
   ]
   expect(expected_urls).to include(current_url)
-  puts "***REDIRECTED TO HOME: #{current_url}"
+  
 end
 
 # ============================================
@@ -24,14 +24,14 @@ end
 # ============================================
 Then('I should be on the cart page') do
   expect(page).to have_selector('h2', text: 'Products', wait: 10)
-  puts "***ON CART PAGE"
+  
 end
 
 Then('the cart should still contain the added items') do
   visit '/cart.html'
   sleep 1
   expect(page).to have_selector(:xpath, "//td[text()='Samsung galaxy s6']", wait: 10)
-  puts "***CART STILL CONTAINS: Samsung galaxy s6"
+  
 end
 
 # ============================================
@@ -44,7 +44,7 @@ end
 
 Then('the product detail page should be closed') do
   expect(page).to have_no_selector('h2', text: 'Samsung galaxy s6', wait: 5)
-  puts "***PRODUCT DETAIL PAGE IS CLOSED"
+  
 end
 
 # ============================================
@@ -52,12 +52,7 @@ end
 # ============================================
 Then('the contact modal should be closed') do
   expect(page).to have_no_selector('#exampleModal', visible: true, wait: 5)
-  puts "***CONTACT MODAL IS CLOSED"
-end
-
-Then('the about us modal should be closed') do
-  expect(page).to have_no_selector('#videoModal', visible: true, wait: 5)
-  puts "***ABOUT US MODAL IS CLOSED"
+  
 end
 
 # ============================================
@@ -72,9 +67,9 @@ When('I add the product {string} to the cart') do |product|
   sleep 1
   begin
     page.driver.browser.switch_to.alert.accept
-    puts "***ADDED: #{product}"
+    
   rescue
-    puts "***ADDED: #{product} (no alert)"
+   
   end
   visit '/'
   sleep 1

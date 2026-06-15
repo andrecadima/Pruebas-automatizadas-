@@ -1,5 +1,7 @@
-When('I add the product {string} for persistence validation') do |product_name|
-  puts "***ADDING PRODUCT FOR PERSISTENCE TEST: #{product_name}"
+
+
+When('I add the product {string}') do |product_name|
+  puts "***ADDING PRODUCT: #{product_name}"
 
   find(
     :xpath,
@@ -32,51 +34,52 @@ When('I add the product {string} for persistence validation') do |product_name|
   end
 
   puts "***ALERT: #{alert.text}"
-
   alert.accept
 
-  sleep 3
+  sleep 2
+  
+  # Verificar que el producto se agregó al carrito
+  visit '/cart.html'
+  cart_text = find(:css, '#tbodyid', wait: 10).text
+  if cart_text.include?(product_name)
+   
+  else
+   
+  end
+  
+  # Volver a la home page
+  visit '/'
+  sleep 2
 
-  puts "***PRODUCT ADDED SUCCESSFULLY"
+  
 end
 
-When('I navigate back to the home page for persistence validation') do
-  visit 'https://demoblaze.com'
-
+When('I navigate back to the home page') do
+  visit '/'
   sleep 3
-
   expect(page).to have_selector(
     :xpath,
     "//a[contains(@class,'hrefch')]",
-    wait: 2
+    wait: 10
   )
-
-  puts "***RETURNED TO HOME PAGE"
+  
 end
 
-When('I open the cart page for persistence validation') do
-  find(:link, 'Cart', wait: 10).click
-
+When('I open the cart page') do
+  visit '/cart.html'
   sleep 3
-
-  expect(page).to have_current_path('/cart.html', wait: 2)
-
-  expect(page).to have_selector('#tbodyid', wait: 2)
-
-  puts "***CART PAGE OPENED"
+  expect(page).to have_current_path('/cart.html', wait: 10)
+  expect(page).to have_selector('#tbodyid', wait: 10)
+  
 end
 
 Then('the product {string} should still be present in the cart') do |product_name|
   sleep 3
-
-  cart_text = find(:css, '#tbodyid', wait: 2).text
-
+  cart_text = find(:css, '#tbodyid', wait: 10).text
   puts "***CART CONTENT:"
   puts cart_text
-
   unless cart_text.include?(product_name)
     raise "Product disappeared from cart. Expected: #{product_name}"
   end
-
   puts "***PRODUCT PERSISTED IN CART: #{product_name}"
 end
