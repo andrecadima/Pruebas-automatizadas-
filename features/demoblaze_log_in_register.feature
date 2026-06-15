@@ -14,7 +14,7 @@ Feature: Demoblaze user registration, login and logout
     And I click on the "Sign up" button in the pop up
     Then the alert message should be "Sign up successful."
 
-  @demoblaze_signin
+  @smoke @demoblaze_signin
   Scenario: Successful sign in in Demoblaze
     When I click on "Log in" option
     And I enter the registered username in the log in username field

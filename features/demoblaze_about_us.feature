@@ -6,7 +6,7 @@ Feature: Demoblaze About Us section
   Background:
     Given I browse to Demoblaze page
 
-  @smoke_test_about_us_modal
+  @smoke @smoke_test_about_us_modal
   Scenario: Open and see the About Us information
     When I click on "About us" option
     Then the about us modal should be displayed

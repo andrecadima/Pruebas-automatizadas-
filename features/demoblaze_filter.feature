@@ -6,7 +6,7 @@ Feature: Demoblaze product filtering by category
   Background:
     Given I am on the Demoblaze home page
 
-  @demoblaze_phones_filter
+  @smoke @demoblaze_phones_filter
   Scenario Outline: See phones after selecting the Phones category
     Given I see the product "Samsung galaxy s6" on the page
     When I select the "Phones" category

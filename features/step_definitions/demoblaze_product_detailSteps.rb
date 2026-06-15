@@ -5,13 +5,13 @@ When('I open the product detail page for {string}') do |product_name|
 
   expect(page).to have_selector('.name', wait: 10)
 
-  puts "***PRODUCT DETAIL PAGE OPENED FOR: #{product_name}"
+  
 end
 
 Then('the product detail name should be {string}') do |expected_product_name|
   actual_product_name = find(:css, '.name', wait: 10).text
 
-  puts "***PRODUCT NAME FOUND: #{actual_product_name}"
+  
 
   if actual_product_name != expected_product_name
     raise "Product name is wrong. Expected: #{expected_product_name} Actual: #{actual_product_name}"
@@ -21,7 +21,7 @@ end
 Then('the product detail price should contain {string}') do |expected_price|
   actual_price = find(:css, '.price-container', wait: 10).text
 
-  puts "***PRODUCT PRICE FOUND: #{actual_price}"
+  
 
   unless actual_price.include?(expected_price)
     raise "Product price is wrong. Expected to contain: #{expected_price} Actual: #{actual_price}"
@@ -40,13 +40,13 @@ end
 Then('I see the product name {string}') do |expected_name|
   actual_name = find(:css, '.name', wait: 10).text
   expect(actual_name).to eq(expected_name)
-  puts "***PRODUCT NAME: #{actual_name}"
+  
 end
 
 Then('I see the product price {string}') do |expected_price|
   actual_price = find(:css, '.price-container', wait: 10).text
   expect(actual_price).to include(expected_price)
-  puts "***PRODUCT PRICE: #{actual_price}"
+  
 end
 
 Then('I see the {string} button') do |button_text|

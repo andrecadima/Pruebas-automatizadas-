@@ -33,7 +33,7 @@ When('I add these products to the cart:') do |table|
     end
 
     actual_alert = alert.text.strip
-    puts "***ALERT: #{actual_alert}"
+    
 
     unless actual_alert == 'Product added' || actual_alert == 'Product added.'
       raise "Wrong alert. Expected: Product added Actual: #{actual_alert}"
@@ -44,7 +44,7 @@ When('I add these products to the cart:') do |table|
     visit '/'
     sleep 3
     expect(page).to have_selector(:xpath, "//a[contains(@class, 'hrefch')]", wait: 10)
-    puts "***PRODUCT ADDED: #{product_name}"
+    
   end
 end
 

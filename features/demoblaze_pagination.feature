@@ -7,7 +7,7 @@ Feature: Demoblaze product pagination
     Given I am on the Demoblaze home page
     And I am on the first page of products
 
-  @smoke_test_pagination_previous
+  @smoke @smoke_test_pagination_previous
   Scenario: Go back to previous page from the first page
     Then I see these products on the page:
       | Samsung galaxy s6   |
@@ -31,7 +31,7 @@ Feature: Demoblaze product pagination
       | Sony vaio i7        |
       | Apple monitor 24    |
 
-  @smoke_test_pagination_next
+  @smoke @smoke_test_pagination_next
   Scenario: Go to next page from the first page
     Then I see these products on the page:
       | Samsung galaxy s6   |
